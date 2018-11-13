@@ -1,0 +1,124 @@
+@import url("C:/Users/Curiosity/Desktop/OCP/Shiny Interface Beta 06_04_2017/Dahsborad/www/img/header.jpg");
+
+
+.main-header .logo {
+	
+  	font-family: "Georgia", "Trebuchet MS", Helvetica, sans-serif;
+  	font-weight: bold;
+  	font-size: 24px;
+}
+
+.header img {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background: #555;
+}
+
+
+.box.box-solid.box-primary>.box-header {
+			      font-family: Nexa;
+    			      src: url(http://dl.dafont.com/dl/?f=avenircondensedhand);
+                              color:#fff;
+                              background:#4F6D7A
+                              }
+                             
+                              .box.box-solid.box-primary{
+                              border-bottom-color:#4F6D7A;
+                              border-left-color:#4F6D7A;
+                              border-right-color:#4F6D7A;
+                              border-top-color:#4F6D7A;
+                              }
+
+
+
+.box.box-solid.box-info>.box-header {
+                              font-family: "Trebuchet MS", Helvetica, sans-serif;
+			      color:#fff;
+                              background:#B6D6D1
+                              }
+                             
+                              .box.box-solid.box-info{
+                              border-bottom-color:#B6D6D1;
+                              border-left-color:#B6D6D1;
+                              border-right-color:#B6D6D1;
+                              border-top-color:#B6D6D1;
+                              }
+
+
+.box.box-solid.box-success>.box-header {
+			      font-family: 'Nexa Bold', sans-serif;
+                              color:#fff;
+                              background:#586F7C
+                              }
+                             
+                              .box.box-solid.box-success{
+                              border-bottom-color:#586F7C;
+                              border-left-color:#586F7C;
+                              border-right-color:#586F7C;
+                              border-top-color:#586F7C;
+                              }
+
+
+
+.small-box.bg-red { background-color: #AEB4A9 !important; color: #FFFFFF !important; }
+.small-box.bg-orange { background-color: #FFE66D !important; color: #FFFFFF !important; }
+.small-box.bg-black { background-color: #70A9A1 !important; color: #FFFFFF !important; }
+.small-box.bg-green { background-color: #1A535C !important; color: #FFFFFF !important; }
+
+
+
+
+                              /* logo */
+.skin-blue .main-header .logo {
+                                  background-color: #182955;
+                                  }
+                                  
+                                  /* logo when hovered */
+.skin-blue .main-header .logo:hover {
+                                  background-color: #254061;
+                                  }
+                                  
+                                  /* navbar (rest of the header) */
+.skin-blue .main-header .navbar {
+                                  background-color: #254061;
+                                  }
+                                  
+                                  /* main sidebar */
+.skin-blue .main-sidebar {
+                                  background-color: #222D32;
+                                  }
+                                  
+                                  /* active selected tab in the sidebarmenu */
+.skin-blue .main-sidebar .sidebar .sidebar-menu .active a{
+                                  background-color: #1b4764;
+                                  }
+                                  
+                                  /* other links in the sidebarmenu */
+.skin-blue .main-sidebar .sidebar .sidebar-menu a{
+                                  background-color: ;
+                                  color: ;
+                                  }
+                                  
+                                  /* other links in the sidebarmenu when hovered */
+ .skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{
+                                  background-color: #1B4764;
+                                  }
+                                  /* toggle button when hovered  */
+                                  .skin-blue .main-header .navbar .sidebar-toggle:hover{
+                                  background-color: #1B4764;
+                                  }
+                                  
+#plot-container {
+  position: relative;
+}
+#loading-spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  margin-top: -33px;  /* half of the spinner's height */
+  margin-left: -33px; /* half of the spinner's width */
+}
+
+
