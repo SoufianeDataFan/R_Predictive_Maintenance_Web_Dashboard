@@ -1,6 +1,6 @@
 
 setwd("/path/to/Shiny Interface Beta 06_04_2017")
-path_parent="/path/to/OCP/Shiny Interface Beta 06_04_2017"
+path_parent="/path/to/Shiny Interface Beta 06_04_2017"
 path_data=paste(path_parent,"/data/",sep="")
 path_scripts=paste(path_parent,"/Scripts/",sep="")
 path_results=paste(path_parent,"/Results/",sep="")
@@ -38,34 +38,34 @@ Tab_2014$X.3=NULL
 Tab_2014$X.2=NULL
 Tab_2014$X.1=NULL
 Tab_2014$Cumul=NULL
-Tab_2014$Durée.cumul=NULL
+Tab_2014$DurÃ©e.cumul=NULL
 Tab_2014$Subi=NULL
-Tab_2014$Programmé=NULL
+Tab_2014$ProgrammÃ©=NULL
 
 
 # Let's merge tables into one 
 
-TAB_y=Tab_2014[,c("Équipement","Ligne","Date","Maintenance","Durée")]
+TAB_y=Tab_2014[,c("Ã‰quipement","Ligne","Date","Maintenance","DurÃ©e")]
 
-newrow=Tab_2015[,c("Équipement","Ligne","Date","Maintenance","Durée")]
+newrow=Tab_2015[,c("Ã‰quipement","Ligne","Date","Maintenance","DurÃ©e")]
 
 TAB_y=rbind(TAB_y,newrow)
 
-newrow1=Tab_2016[,c("Équipement","Ligne","Date","Maintenance","Durée")]
+newrow1=Tab_2016[,c("Ã‰quipement","Ligne","Date","Maintenance","DurÃ©e")]
 
 TAB_y=rbind(TAB_y,newrow1)
 
 # summary(TAB_y)
 # nrow(newrow1)+nrow(newrow)+nrow(Tab_2014)
 # summary(VNV_AB)
-class(VNV_AB$Durée)
+class(VNV_AB$DurÃ©e)
 
-as.numeric(levels(VNV_AB$Durée))[VNV_AB$Durée[]]
+as.numeric(levels(VNV_AB$DurÃ©e))[VNV_AB$DurÃ©e[]]
 # Failures History 
 ##############################################################################################
 
-levels(TAB_y$Équipement)
-VNV=TAB_y[grep("entilateur",TAB_y$Équipement),]
+levels(TAB_y$Ã‰quipement)
+VNV=TAB_y[grep("entilateur",TAB_y$Ã‰quipement),]
 VNV_AB=subset(VNV, VNV$Ligne=="AP1/2" )
 VNV_CD=subset(VNV, VNV$Ligne=="AP3/4" )
 VNV_PII=subset(VNV, VNV$Ligne=="AP")
