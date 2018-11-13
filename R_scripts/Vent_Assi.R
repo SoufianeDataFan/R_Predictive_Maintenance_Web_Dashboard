@@ -1,6 +1,7 @@
-################ Projet OCP Maintenance System #############################################
-############### Auteur:Rachid ESAMSI , Digitalisation Industrielle-OI , OCP ################
-################date : 14/02/2017###########################################################
+################ Pred Maintenance  #############################################
+############### Author: CHAMI Soufiane ################
+################ Creation date : 14/02/2017###########################################################
+
 library(zoo)
 library(data.table)
 library(ggplot2)
@@ -17,14 +18,14 @@ library(subgraphMining)
 # install.packages("mnormt")
 
 
-path_parent="C:/Users/Curiosity/Desktop/OCP/Shiny Interface Beta 06_04_2017"
+path_parent="/path/to/Shiny Interface Beta 06_04_2017"
 path_data=paste(path_parent,"/data/",sep="")
 path_scripts=paste(path_parent,"/Scripts/",sep="")
 path_results=paste(path_parent,"/Results/",sep="")
 setwd(path_scripts)
 
 
-Sensor_data<-fread(paste(path_data,"ocp-1201CD_VAV-52d7ff76b4266251334e4272.csv",sep=""),sep = ",",header = F)
+Sensor_data<-fread(paste(path_data,"Sensor_data.csv",sep=""),sep = ",",header = F)
 colnames(Sensor_data)=c("Date", "G.pk", "mm.s.RMS", "Temp")
 str(Sensor_data)
 Sensor_data$G.pk<- as.numeric(as.character(gsub(",",".",Sensor_data$G.pk)))
@@ -98,7 +99,7 @@ Sensor_data_Agg_ot_MA$Date<-Sensor_data_agg$Dt
 #######
 #######
 failure_data<-fread(paste(path_data,"VNVCD.csv",sep=""),sep = ",",header = T)
-failure_data$Durée<- as.numeric(as.character(gsub(",",".",failure_data$Durée)))
+failure_data$Dur?e<- as.numeric(as.character(gsub(",",".",failure_data$Dur?e)))
 
 failure_data$Date<-as.POSIXct(strptime(failure_data$Date, "%d/%m/%Y"))
 failure_data$V1=NULL

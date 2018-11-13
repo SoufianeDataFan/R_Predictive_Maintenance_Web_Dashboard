@@ -1,6 +1,6 @@
 
-setwd("C:/Users/Curiosity/Desktop/OCP/Shiny Interface Beta 06_04_2017")
-path_parent="C:/Users/Curiosity/Desktop/OCP/Shiny Interface Beta 06_04_2017"
+setwd("/path/to/Shiny Interface Beta 06_04_2017")
+path_parent="/path/to/OCP/Shiny Interface Beta 06_04_2017"
 path_data=paste(path_parent,"/data/",sep="")
 path_scripts=paste(path_parent,"/Scripts/",sep="")
 path_results=paste(path_parent,"/Results/",sep="")

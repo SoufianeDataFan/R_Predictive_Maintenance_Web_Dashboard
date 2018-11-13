@@ -13,7 +13,7 @@ library(psych)
 
 ##################################### Working directories  #############################
 
-path_parent="C:/Users/Curiosity/Desktop/OCP/Shiny Interface Beta 06_04_2017"
+path_parent="/path/to/Shiny Interface Beta 06_04_2017"
 path_data=paste(path_parent,"/data/",sep="")
 path_scripts=paste(path_parent,"/Scripts/",sep="")
 path_results=paste(path_parent,"/Results/",sep="")
@@ -72,53 +72,53 @@ Tab_2014$X.3=NULL
 Tab_2014$X.2=NULL
 Tab_2014$X.1=NULL
 Tab_2014$Cumul=NULL
-Tab_2014$Durée.cumul=NULL
+Tab_2014$Duree.cumul=NULL
 Tab_2014$Subi=NULL
-Tab_2014$Programmé=NULL
+Tab_2014$Programme=NULL
 
 # Let's merge tables into one 
 
-TAB_y=Tab_2014[,c("Équipement","Ligne","Date","Maintenance","Durée")]
+TAB_y=Tab_2014[,c("equipement","Ligne","Date","Maintenance","Duree")]
 
-newrow=Tab_2015[,c("Équipement","Ligne","Date","Maintenance","Durée")]
+newrow=Tab_2015[,c("equipement","Ligne","Date","Maintenance","Duree")]
 
 TAB_y=rbind(TAB_y,newrow)
 
-newrow1=Tab_2016[,c("Équipement","Ligne","Date","Maintenance","Durée")]
+newrow1=Tab_2016[,c("equipement","Ligne","Date","Maintenance","Duree")]
 
 TAB_y=rbind(TAB_y,newrow1)
 
 # finish !
 
 ################################################ Failures History Selection  #############################################
-levels(VNV$Équipement)
-VNV=TAB_y[grep("entilateur",TAB_y$Équipement),]
-PMP=TAB_y[grep("culation" ,TAB_y$Équipement),]
-ELV=TAB_y[grep("levateur", TAB_y$Équipement),]
-SEP=TAB_y[grep("parateur", TAB_y$Équipement),]
+levels(VNV$equipement)
+VNV=TAB_y[grep("entilateur",TAB_y$equipement),]
+PMP=TAB_y[grep("culation" ,TAB_y$equipement),]
+ELV=TAB_y[grep("levateur", TAB_y$equipement),]
+SEP=TAB_y[grep("parateur", TAB_y$equipement),]
 
-PMP$Équipement= EquipmentID$Equipment[6]
+PMP$equipement= EquipmentID$Equipment[6]
 for (i in 1:nrow(PMP)){
-  if (as.character(PMP$Ligne[i]) =="AP3/4") PMP$Équipement[i]=EquipmentID$Equipment[5]
-  if (as.character(PMP$Ligne[i]) =="AP") PMP$Équipement[i]="PMP Circulation AP"
+  if (as.character(PMP$Ligne[i]) =="AP3/4") PMP$equipement[i]=EquipmentID$Equipment[5]
+  if (as.character(PMP$Ligne[i]) =="AP") PMP$equipement[i]="PMP Circulation AP"
 }
-VNV$Équipement=EquipmentID$Equipment[2]
+VNV$equipement=EquipmentID$Equipment[2]
 for (i in 1:nrow(VNV)){
-  if (as.character(VNV$Ligne[i]) =="AP3/4") VNV$Équipement[i]=EquipmentID$Equipment[1]
-  if (as.character(VNV$Ligne[i]) =="AP") VNV$Équipement[i]=EquipmentID$Equipment[3]
-  if (as.character(VNV$Ligne[i]) =="LS") VNV$Équipement[i]="Vtl Assainissement LS"
-  if (as.character(VNV$Ligne[i]) =="LN") VNV$Équipement[i]="Vtl Assainissement LN"
+  if (as.character(VNV$Ligne[i]) =="AP3/4") VNV$equipement[i]=EquipmentID$Equipment[1]
+  if (as.character(VNV$Ligne[i]) =="AP") VNV$equipement[i]=EquipmentID$Equipment[3]
+  if (as.character(VNV$Ligne[i]) =="LS") VNV$equipement[i]="Vtl Assainissement LS"
+  if (as.character(VNV$Ligne[i]) =="LN") VNV$equipement[i]="Vtl Assainissement LN"
 }
-ELV$Équipement=as.character(ELV$Équipement)
+ELV$equipement=as.character(ELV$equipement)
 ELV$Ligne=as.character(ELV$Ligne)
 for (i in 1:nrow(ELV)) {
-  ELV$Équipement[i]=paste(as.character(ELV$Équipement[i]), as.character(ELV$Ligne[i]), sep = "____")
+  ELV$equipement[i]=paste(as.character(ELV$equipement[i]), as.character(ELV$Ligne[i]), sep = "____")
 }
 
-SEP$Équipement= EquipmentID$Equipment[6]
+SEP$equipement= EquipmentID$Equipment[6]
 for (i in 1:nrow(PMP)){
-  if (as.character(PMP$Ligne[i]) =="AP3/4") PMP$Équipement[i]=EquipmentID$Equipment[5]
-  if (as.character(PMP$Ligne[i]) =="AP") PMP$Équipement[i]="PMP Circulation AP"
+  if (as.character(PMP$Ligne[i]) =="AP3/4") PMP$equipement[i]=EquipmentID$Equipment[5]
+  if (as.character(PMP$Ligne[i]) =="AP") PMP$equipement[i]="PMP Circulation AP"
 }
 
 
@@ -128,8 +128,8 @@ for (i in 1:nrow(PMP)){
 
 
 # library(tidyr) 
-# PMP= unite(PMP, Équipement, c(Équipement, Ligne), remove=T) 
-# VNV=unite(VNV, Équipement, c(Équipement, Ligne), remove=T)
+# PMP= unite(PMP, equipement, c(equipement, Ligne), remove=T) 
+# VNV=unite(VNV, equipement, c(equipement, Ligne), remove=T)
 
 VNV_AB=subset(VNV, VNV$Ligne=="AP1/2" )
 VNV_CD=subset(VNV, VNV$Ligne=="AP3/4" )
@@ -172,56 +172,58 @@ Panne$Equipement=as.character(Panne$Equipement)
 write.csv(VNV_AB, file = as.character(EquipmentID[EquipmentID$Equipment=="Vtl Assainissement AB", 3]))
 write.csv(VNV_CD, file = as.character(EquipmentID[EquipmentID$Equipment=="Vtl Assainissement CD", 3]))
 write.csv(VNV_PII, file = as.character(first(as.character(EquipmentID[EquipmentID$Equipment=="Vtl Assainissement AP", 3]))))
-######################################Multiple shades################################
-# FromDate= as.POSIXct("2016-01-01 00:00:00", format = "%Y-%m-%d %H:%M:%S")
-# 
-# ToDate=as.POSIXct("2017-12-30 00:00:00", format = "%Y-%m-%d %H:%M:%S")
-# 
-# input_machine= "Vtl Assainissement CD"
-# 
-# input_Paramerter="G.pk"
-# 
-# Data_Sensors$Date=as.POSIXct(Data_Sensors$Date, format = "%Y-%m-%d %H:%M:%S")
-# 
-# Yable=Data_Sensors[Data_Sensors$Date>= FromDate & Data_Sensors$Date<=ToDate & Data_Sensors$Equipment==input_machine ,]
-# 
-# 
-# 
-# Yable=Yable[,c(2,3)]
-# 
-# 
-# 
-# Yable= xts(Yable[,2], as.POSIXct(Yable[,1], format = "%Y-%m-%d %H:%M:%S"))
 
-# 
-# 
-# library(dygraphs)
-# dg=dygraph(Yable, 
-#         main ="Vibrations records",  
-#         xlab = "time frame",
-#         ylab = "G.pk records"
-#         )  %>% dyRangeSelector()
-# 
-# # dg %>% dyShading( from= shade_tab$Date[15], to= shade_tab$Date[15] + 24*60*60 , color = '#FFE6E6')
-# 
-# shade_tab=read.csv("VNVCD.csv", sep=",")
-# colnames(shade_tab)[1]="TBF"
-# Prd=shade_tab[,c(2,4,1)]
-# Prd$Équipement="Vtl Assainissement CD"
-# shade_tab$Date=as.POSIXct(as.character(shade_tab$Date),  format = "%d/%m/%Y ")
-# shade_tab$Maintenance=as.character(shade_tab$Maintenance)
-# 
-# # #add shades
-# # for( i in 1:nrow(shade_tab)) {
-# #   dg = dyShading(dg, from= shade_tab$Date[i], to= shade_tab$Date[i] + 24*60*60 , color = 'black')
-# # }
-# # 
-# # 
-# # #show graph
-# # dg
-# 
-# dyShading(dg, from= shade_tab$Date[15], to= shade_tab$Date[15] + 24*60*60 , color = 'black')
-# 
+
+
+###################################### Create shades for failure event in the dygraph chart ################################
+FromDate= as.POSIXct("2016-01-01 00:00:00", format = "%Y-%m-%d %H:%M:%S")
+
+ToDate=as.POSIXct("2017-12-30 00:00:00", format = "%Y-%m-%d %H:%M:%S")
+
+input_machine= "Vtl Assainissement CD"
+
+input_Paramerter="G.pk"
+
+Data_Sensors$Date=as.POSIXct(Data_Sensors$Date, format = "%Y-%m-%d %H:%M:%S")
+
+Yable=Data_Sensors[Data_Sensors$Date>= FromDate & Data_Sensors$Date<=ToDate & Data_Sensors$Equipment==input_machine ,]
+
+
+
+Yable=Yable[,c(2,3)]
+
+
+
+Yable= xts(Yable[,2], as.POSIXct(Yable[,1], format = "%Y-%m-%d %H:%M:%S"))
+
+
+
+library(dygraphs)
+dg=dygraph(Yable,
+        main ="Vibrations records",
+        xlab = "time frame",
+        ylab = "G.pk records"
+        )  %>% dyRangeSelector()
+
+# dg %>% dyShading( from= shade_tab$Date[15], to= shade_tab$Date[15] + 24*60*60 , color = '#FFE6E6')
+
+shade_tab=read.csv("VNVCD.csv", sep=",")
+colnames(shade_tab)[1]="TBF"
+Prd=shade_tab[,c(2,4,1)]
+Prd$equipement="Vtl Assainissement CD"
+shade_tab$Date=as.POSIXct(as.character(shade_tab$Date),  format = "%d/%m/%Y ")
+shade_tab$Maintenance=as.character(shade_tab$Maintenance)
+
+#add shades
+for( i in 1:nrow(shade_tab)) {
+  dg = dyShading(dg, from= shade_tab$Date[i], to= shade_tab$Date[i] + 24*60*60 , color = 'black')
+}
+
+
+#show graph
+
+dyShading(dg, from= shade_tab$Date[15], to= shade_tab$Date[15] + 24*60*60 , color = 'black')
+
 ################################## Data Preparation for ML models ##############################################
 
 IO_tab=rep("", nrow(EquipmentID))
@@ -245,9 +247,6 @@ Sensor_data$Date<-as.POSIXct(strptime(Sensor_data$Date, "%Y-%m-%d %H:%M:%S"))
 Sensor_data$Dt=date(Sensor_data$Date)
 Sensor_data$Hour=hour(Sensor_data$Date)
 Sensor_data$Minute=minute(Sensor_data$Date)
-###############Normaisation of data#################
-
-##############fin de scaling#######################
 
 Sensor_data_agg=as.data.frame(Sensor_data[,2:5])
 Sensor_data_agg <- Sensor_data_agg %>% group_by(Dt) %>% summarise_each(funs(mean=mean(.,na.rm=TRUE)
@@ -300,7 +299,7 @@ Sensor_data_Agg_ot_MA$Date<-Sensor_data_agg$Dt
 #######
 #######
 failure_data<-fread(paste(path_data,as.character(EquipmentID$PanneID[compteur]),sep=""),sep = ",",header = T)
-failure_data$Durée<- as.numeric(as.character(gsub(",",".",failure_data$Durée)))
+failure_data$Duree<- as.numeric(as.character(gsub(",",".",failure_data$Duree)))
 
 failure_data$Date<-as.POSIXct(strptime(failure_data$Date, "%d/%m/%Y"))
 failure_data$V1=NULL

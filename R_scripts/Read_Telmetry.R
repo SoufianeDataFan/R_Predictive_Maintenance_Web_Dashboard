@@ -1,9 +1,9 @@
-################ Projet OCP Maintenance System #############################################
-################Exploration des données des capteurs ########################################
-############### Created by Rachid ESAMSI , Digitalisation Industrielle-OI , OCP #############
-################date : 14/02/2017###################
+################ Preditive Maintenance#############################################
+################ Data Exploration ########################################
+############### Author : CHAMI Soufian #############
+################Creation date : 14/02/2017###################
 
-path_parent="C:/Users/Curiosity/Desktop/OCP/Shiny Interface Beta 06_04_2017"
+path_parent="C:/path/to/Shiny Interface Beta 06_04_2017"
 path_data=paste(path_parent,"/data/",sep="")
 path_scripts=paste(path_parent,"/Scripts/",sep="")
 path_results=paste(path_parent,"/Results/",sep="")
@@ -16,7 +16,7 @@ library(dplyr)
 library(zoo)
 
 
-Telemetry_data<-fread(paste(path_data,"ocp-1201CD_VAV-52d7ff76b4266251334e4272.csv",sep=""),sep = ",",header = F)
+Telemetry_data<-fread(paste(path_data,"Sensors_data.csv",sep=""),sep = ",",header = F)
 # Telemetry_data$Tachometer=NULL
 # Telemetry_data$V10=NULL
 colnames(Telemetry_data)=c("Date", "G.pk", "mm.s.RMS", "Temp")

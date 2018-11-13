@@ -1,46 +1,7 @@
-################ Predictive Maintenance#############################################
-############### Author : CHAMI Soufiane ################
-################ Creation date : 14/02/2017##########################################
-#####################  Packages   #####################
-
-  library(zoo)
-  library(data.table)
-  library(ggplot2)
-  library(lubridate)
-  library(dplyr)
-  library(dtplyr)
-  library(reshape2)
-  library(dataQualityR)
-  library(caret)
-  library(compare)
-  library(psych) 
-  library(randomForest)
-  library(nnet)
-  library(e1071)
-  library(rpart)
-  library(tree)
-  library(xgboost)
-  library(plyr)
-  library(gbm)
-  library(party)
-  library(neuralnet)
-  library(survival)
-  library(rms)
-  library(randomForestSRC)
-  library(party)
-  library(prodlim)
-
-#########Data Preparation #####################
-  
-  
-  path_parent="C:/path/to/Shiny Interface Beta 06_04_2017"
-  path_data=paste(path_parent,"/data/",sep="")
-  path_scripts=paste(path_parent,"/Scripts/",sep="")
-  path_results=paste(path_parent,"/Results/",sep="")
-  setwd(path_scripts)
-  
-  
-  Sensor_data<-fread(paste(path_data,"Sensor_data.csv",sep=""),sep = ",",header = F)
+Models_fun=function(i){
+  ###########Data Preparation #####################
+  setwd(path_data)
+  Sensor_data<-fread(paste(path_data,as.character(Equipment$ID[i]),sep=""),sep = ",",header = F)
   colnames(Sensor_data)=c("Date", "G.pk", "mm.s.RMS", "Temp")
   str(Sensor_data)
   Sensor_data$G.pk<- as.numeric(as.character(gsub(",",".",Sensor_data$G.pk)))
@@ -109,11 +70,12 @@
   Sensor_data_Agg_ot_MA$Date<-Sensor_data_agg$Dt
   
   
-  #####Traitement des Pannes  ##############
+  ##### Processing of Machine Failures history ##############
   #######
   #######
-  failure_data<-fread(paste(path_data,"Machine_type_CD.csv",sep=""),sep = ",",header = T)
-  failure_data$Dur?e<- as.numeric(as.character(gsub(",",".",failure_data$Dur?e)))
+  
+  failure_data<-fread(paste(path_data,as.character(Equipment$PanneID[i]),sep=""),sep = ",",header = T)
+  failure_data$Durée<- as.numeric(as.character(gsub(",",".",failure_data$Durée)))
   
   failure_data$Date<-as.POSIXct(strptime(failure_data$Date, "%d/%m/%Y"))
   failure_data$V1=NULL
@@ -130,7 +92,7 @@
   
   En=as.Date((failure_data$Date[nrow(failure_data)]))
   start=as.Date((failure_data$Date[1]))
-  TTF=data.frame(Equipment="Machine_type_AP3/4", Date_Record=seq.Date(start,En, by="days"),TTF_days=0)
+  TTF=data.frame(Equipment=Equipment$Equipment[i], Date_Record=seq.Date(start,En, by="days"),TTF_days=0)
   
   # Filling the column TTF_days
   for(j in 1:(nrow(failure_data)-1)){
@@ -160,17 +122,7 @@
   
   IO<- as.data.table(merge(TTF,Sensor_data_agg[,1:4],by="Date"))
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  ####Partition  the data #####################
+  #### Data Partition #####################
   
   source(paste(path_scripts,"Metrics.R",sep=""))
   
@@ -190,6 +142,14 @@
   cv.tree_TTF=cv.tree(tree_TTF)
   plot(cv.tree_TTF$size,cv.tree_TTF$dev,type = 'b')
   
+  ###########################################################################################################################
+  ###########################################################################################################################
+  ############# Last updates   05/25/2017 ###################################################################################
+  ###########################################################################################################################
+  ###########################################################################################################################
+  
+  
+  
   ###############"Random Forest#####################
   rf_opts = data.frame(.mtry=c(1:3))
   
@@ -199,7 +159,6 @@
   
   model_TTF_rf_pred=predict(object = results_rf,newdata =IO_test[,4:6],type="raw")
   model_TTF_rf_train=predict(object = results_rf,newdata =IO_train[,4:6],type="raw")
-  X=as.data.frame(model_TTF_rf_pred)
   
   plot(model_TTF_rf_train)  
   plot(model_TTF_rf_pred)
@@ -208,7 +167,7 @@
   model_TTF_rf_metrics_tr <- evaluate_model(observed = IO_train$TTF_days, predicted = model_TTF_rf_train) 
   
   Y=as.data.frame(model_TTF_rf_metrics)
-  
+  # 
   ########Extreme Boosting Gradien #####################
   xgb_grid_1 = expand.grid(
     nrounds = 100,
@@ -226,7 +185,7 @@
     number = 100,
     verboseIter = TRUE,
     returnData = FALSE,
-    returnResamp = "all",                                                                                                                  
+    returnResamp = "all",
     allowParallel = TRUE
   )
   
@@ -242,32 +201,32 @@
   Xgb_pred_TTF_pred <- predict(object=model_TTF_xgb,newdata =IO_test[,4:6],type="raw")
   Xgb_pred_TTF_train <- predict(object=model_TTF_xgb,newdata =IO_train[,4:6],type="raw")
   
-  plot(Xgb_pred_TTF_pred)  
+  plot(Xgb_pred_TTF_pred)
   
   model_TTF_Xgb_metrics <- evaluate_model(observed = IO_test$TTF_days, predicted = Xgb_pred_TTF_pred)
   model_TTF_Xgb_metrics_tr <- evaluate_model(observed = IO_train$TTF_days, predicted = Xgb_pred_TTF_train)
   
   
-  ################GLM##############################################
+  # ################ GLM : doesn't hurt if we try it :) ##############################################
   
   model_TTF_GLM=glm(TTF_days ~ .,data=IO_train[,3:5],family = poisson())
   
   model_TTF_GLM_pred=predict(object = model_TTF_GLM,newdata =IO_test[,4:6],type="response" )
   model_TTF_GLM_train=predict(object = model_TTF_GLM,newdata =IO_train[,4:6],type="response" )
   
-  plot(model_TTF_GLM_pred)                          
+  plot(model_TTF_GLM_pred)
   
   model_TTF_GLM_metrics <- evaluate_model(observed = IO_test$TTF_days, predicted = model_TTF_GLM_pred)
   model_TTF_GLM_metrics_tr <- evaluate_model(observed = IO_train$TTF_days, predicted = model_TTF_GLM_train)
   
   
-  #####################GBM###########################################
+  # #####################GBM###########################################
   
-  # train the model for each parameter combination in the grid, 
+  # train the model for each parameter combination in the grid,
   #   using CV to evaluate
   set.seed(032017)
   
-  model_TTF <- gbm(formula = TTF_days ~ ., 
+  model_TTF <- gbm(formula = TTF_days ~ .,
                    distribution=  "gaussian",
                    data = IO_train[,3:5],
                    n.trees = 70,
@@ -275,30 +234,30 @@
                    shrinkage = 0.3,
                    bag.fraction = 0.5,
                    train.fraction = 1.0,
-                   n.cores = NULL) 
+                   n.cores = NULL)
   
   model_TTF_GBM_pred=predict (object = model_TTF,newdata =IO_test[,4:5], n.trees =70,type="response")
   model_TTF_GBM_train=predict (object = model_TTF,newdata =IO_train[,4:5], n.trees =70,type="response")
   
   
   
-  plot(model_TTF_GBM_pred)                          
+  plot(model_TTF_GBM_pred)
   
   model_TTF_GBM_metrics <- evaluate_model(observed = IO_test$TTF_days, predicted = model_TTF_GBM_pred)
   model_TTF_GBM_metrics_tr <- evaluate_model(observed = IO_train$TTF_days, predicted = model_TTF_GBM_train)
   
-  ########### Neural Network##################################
+  # ########### Neural Network : Focus on Decision Trees family for now ! ##################################
+  # 
+  # 
+  #   n <- names(IO_train[,3:5])
+  #   f <- as.formula(paste("TTF_days ~", paste(n[!n %in% "TTF_days"], collapse = " + ")))
+  # 
+  #   nn <- neuralnet(f,data=IO_train[,3:5],hidden=c(3,2),linear.output=T)
+  # 
+  # 
+  # ############# Metrics for ALL Models ####################################
   
-  
-  n <- names(IO_train[,3:5])
-  f <- as.formula(paste("TTF_days ~", paste(n[!n %in% "TTF_days"], collapse = " + ")))
-  
-  nn <- neuralnet(f,data=IO_train[,3:5],hidden=c(3,2),linear.output=T)
-  
-  
-  #############Metrics for ALL Models ####################################
-  
-  metrics_df <- rbind(model_TTF_GBM_metrics, model_TTF_GLM_metrics, model_TTF_Xgb_metrics,model_TTF_rf_metrics) 
+  metrics_df <- rbind(model_TTF_GBM_metrics, model_TTF_GLM_metrics, model_TTF_Xgb_metrics,model_TTF_rf_metrics)
   rownames(metrics_df) <- NULL
   Algorithms <- c("Genralized Boosting Model",
                   "Poisson Regression Model",
@@ -306,11 +265,11 @@
                   "Random Forest")
   metrics_df <- cbind(Algorithms, metrics_df)
   
-  metrics_df_train <- rbind(model_TTF_GBM_metrics_tr, model_TTF_GLM_metrics_tr, model_TTF_Xgb_metrics_tr,model_TTF_rf_metrics_tr) 
+  metrics_df_train <- rbind(model_TTF_GBM_metrics_tr, model_TTF_GLM_metrics_tr, model_TTF_Xgb_metrics_tr,model_TTF_rf_metrics_tr)
   rownames(metrics_df_train) <- NULL
   
   metrics_df_train <- cbind(Algorithms, metrics_df_train)
-  setwd(paste(path_scripts,"/Results/",sep=""))  
+  setwd(paste(path_scripts,"/Results/",sep=""))
   num.file <- paste(getwd(), "/Metrics_Test.csv", sep= "")
   write.csv(metrics_df,num.file)
   num.file <- paste(getwd(), "/Metrics_Train.csv", sep= "")
@@ -322,7 +281,7 @@
            main = "Predicting Time To Failure  (Training Sample)",xlab = "Date",ylab = "Time To Failure", pch = 19)
   
   axis.Date(1, at=seq(IO_train$Date[1],IO_train$Date[nrow(IO_train)],"month"), format="%m/%Y")
-  legend("topright", legend = c("Real","Extreme Gradient Boosting (R-square=99.34%)","Random Forest (R-square=93%)"),col =c("black","red","green"),pch=19)           
+  legend("topright", legend = c("Real","Extreme Gradient Boosting (R-square=99.34%)","Random Forest (R-square=93%)"),col =c("black","red","green"),pch=19)
   
   
   
@@ -331,14 +290,12 @@
            main = "Predicting Time To Failure  (Testing Sample)",xlab = "Date",ylab = "Time To Failure", pch = 19)
   
   axis.Date(1, at=seq(IO_test$Date[1],IO_test$Date[nrow(IO_test)],"month"), format="%m/%Y")
-  legend("topright", legend = c("Real","Extreme Gradient Boosting (R-square=58.30%)","Random Forest(R-square=63.4%)"),col =c("black","red","green"),pch=19)           
+  legend("topright", legend = c("Real","Extreme Gradient Boosting (R-square=58.30%)","Random Forest(R-square=63.4%)"),col =c("black","red","green"),pch=19)
   
   
+  # 
+  #   
+  #   
+  ###############################The output of the model ##########
   
-
-
-
-
-
-
-
+}
