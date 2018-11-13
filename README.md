@@ -51,7 +51,7 @@ in the middle of his weekend :)
 <h3><i>Other application</i></h3>
 
 
-<li> Healthcare is one the most interesting domains to apply Survival analysis or time_to_event prediction. It can help to diagnose many types of cancer and other diseases. 
+<li> Healthcare is one of the most interesting domains to apply Survival analysis or time_to_event prediction. It can help to diagnose many types of cancer and other diseases. 
 <li> Aerospace is also one of the interesting domains to use this technology. Predicting the failure events of the plane will be very helpful
 to prevent many deadly accidents. 
 
