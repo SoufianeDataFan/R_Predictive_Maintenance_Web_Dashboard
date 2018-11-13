@@ -22,8 +22,8 @@ TTF_pred<-predict.rfsrc(TTF_train,test_data[,2:6])
 Time=TTF_train$time.interest
 
 matplot(Time,t(exp(-TTF_train$chf)[1:15,]),ylab = "Time To Fillure",col = 1,type = "b")
-setwd("C:/Users/Curiosity/Desktop/OCP/Shiny Interface Beta 06_04_2017")
-save.image(file = "OCP_MS.RData")
+setwd("C:/Users/path/to/R-shiny_dashboard/")
+save.image(file = "Proj_M.RData")
 
 
 
