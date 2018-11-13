@@ -70,7 +70,7 @@ Models_fun=function(i){
   Sensor_data_Agg_ot_MA$Date<-Sensor_data_agg$Dt
   
   
-  ##### Machine Failures Processing  ##############
+  ##### Processing of Machine Failures history ##############
   #######
   #######
   
@@ -144,7 +144,7 @@ Models_fun=function(i){
   
 ###########################################################################################################################
 ###########################################################################################################################
-################ Last updates : 05/25/2017, Models Ensemble still under maintenance untill I finish, the dahsboard ########
+############# Last updates : 05/25/2017, Models Ensemble still under maintenance untill I finish with the dahsboard #######
 ###########################################################################################################################
 ###########################################################################################################################
 
@@ -207,7 +207,7 @@ Models_fun=function(i){
   model_TTF_Xgb_metrics_tr <- evaluate_model(observed = IO_train$TTF_days, predicted = Xgb_pred_TTF_train)
 
 
-# ################GLM##############################################
+# ################ GLM : doesn't hurt if we try it :) ##############################################
 
   model_TTF_GLM=glm(TTF_days ~ .,data=IO_train[,3:5],family = poisson())
 
@@ -246,7 +246,7 @@ Models_fun=function(i){
   model_TTF_GBM_metrics <- evaluate_model(observed = IO_test$TTF_days, predicted = model_TTF_GBM_pred)
   model_TTF_GBM_metrics_tr <- evaluate_model(observed = IO_train$TTF_days, predicted = model_TTF_GBM_train)
 
-# ########### Neural Network##################################
+# ########### Neural Network : Focus on Decision Trees family for now ! ##################################
 # 
 # 
 #   n <- names(IO_train[,3:5])
@@ -255,7 +255,7 @@ Models_fun=function(i){
 #   nn <- neuralnet(f,data=IO_train[,3:5],hidden=c(3,2),linear.output=T)
 # 
 # 
-# #############Metrics for ALL Models ####################################
+# ############# Metrics for ALL Models ####################################
 
   metrics_df <- rbind(model_TTF_GBM_metrics, model_TTF_GLM_metrics, model_TTF_Xgb_metrics,model_TTF_rf_metrics)
   rownames(metrics_df) <- NULL
