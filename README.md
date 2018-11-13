@@ -11,10 +11,9 @@ Predictive Maintenance Project consists of two sides :
 
 <h3><i>Sources of Data:</i></h3>
 
-**Sensors_data**:  a **time series** dataset coming from sensors installed on each routing machine. Sensors_data describes the evolution of vibratory health indicators: temperature, the velocity of vibrations and 
-their acceleration
+**Sensors_data**:  a **time series** dataset coming from sensors installed on each routing machine. Sensors_data describes the evolution of vibratory health indicators: temperature, the velocity of vibrations and their acceleration. The sensors are connected to a remote server within a platform of **Internet of Things**. The sensors send the data every two hours with at least 200 observations. Time step between two consecutive observations is not regular but can't be more than two minutes. 
 
-**History of failure events**: failures history of the correspondent machine. 
+**History of failure events**: failures history of the correspondent machine from 2014 to 2017. 
 
 
 
