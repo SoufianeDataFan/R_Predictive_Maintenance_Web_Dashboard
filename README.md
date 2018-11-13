@@ -21,7 +21,7 @@ their acceleration
 
 <h3><i>Decision making </i></h3>
 
-<li> The question I am trying to answer with this model is: What is the likelihood that a machine is going to fail after a given period of time. 
+<li> The question I am trying to answer with this model is: What is the likelihood that a machine is going to fail after a given period of time.
 for some industries (e.g mining, manufacturing ...etc), the production line can have some heavy and critical machines. The failure of one of them
 will stop the production and cause a huge amount of losses (money or people). 
 
