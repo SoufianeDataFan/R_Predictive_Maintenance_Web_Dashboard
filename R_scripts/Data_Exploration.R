@@ -1,6 +1,6 @@
 ################ Preditive Maintenance#############################################
 ################ Data Exploration ########################################
-############### Author : CHAMI Soufian #############
+############### Author : CHAMI Soufiane #############
 ################Creation date : 14/02/2017###################
 
 path_parent="C:/path/to/Shiny Interface Beta 06_04_2017"
