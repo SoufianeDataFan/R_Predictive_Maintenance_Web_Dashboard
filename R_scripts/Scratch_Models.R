@@ -75,7 +75,7 @@ Models_fun=function(i){
   #######
   
   failure_data<-fread(paste(path_data,as.character(Equipment$PanneID[i]),sep=""),sep = ",",header = T)
-  failure_data$Durée<- as.numeric(as.character(gsub(",",".",failure_data$Durée)))
+  failure_data$DurÃ©e<- as.numeric(as.character(gsub(",",".",failure_data$DurÃ©e)))
   
   failure_data$Date<-as.POSIXct(strptime(failure_data$Date, "%d/%m/%Y"))
   failure_data$V1=NULL
