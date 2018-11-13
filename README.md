@@ -17,20 +17,11 @@ their acceleration
 **History of failure events**: failures history of the correspondent machine. 
 
 
-<h3><i>Notes : </i></h3>
-
-<li> The model will make a correlation between the failures history and the 3 vibratory health indicators to predict the future failures events
-
-<li> I decide to focus on survival versions decision trees algorithms like survival random forest.
-
-<li> Time_to_failure is one of the main features that I relied on to estimate the likelihood of failure occurrence 
-
-<li> The input of the model are the machine ID and the number of days, and the model will output the probability of failure of that machine. 
 
 
 <h3><i>Decision making </i></h3>
 
-<li> The question I am trying to answer with this model is: how is likely a machine is going to fail after a given period of time. 
+<li> The question I am trying to answer with this model is: What is the likelihood that a machine is going to fail after a given period of time. 
 for some industries (e.g mining, manufacturing ...etc), the production line can have some heavy and critical machines. The failure of one of them
 will stop the production and cause a huge amount of losses (money or people). 
 
@@ -45,6 +36,16 @@ With this predictive model, Mike will check the failure risk of each machine wit
 The model will output the failure probability of each one of these machines. Next, he will select the machines with risk probability higher than a specific threshold. In order to have to have a peaceful weekend, Mike should prioritize those machines in a critical state and proceed maintenance to avoid any
 in the middle of his weekend :) 
 
+
+<h3><i>Notes : </i></h3>
+
+<li> The model will make a correlation between the failures history and the 3 vibratory health indicators to predict the future failures events
+
+<li> I decide to focus on survival versions decision trees algorithms like survival random forest.
+
+<li> Time_to_failure is one of the main features that I relied on to estimate the likelihood of failure occurrence 
+
+<li> The input of the model are the machine ID and the number of days, and the model will output the probability of failure of that machine. 
 
 
 <h3><i>Other application</i></h3>
