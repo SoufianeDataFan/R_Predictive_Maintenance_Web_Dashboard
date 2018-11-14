@@ -45,6 +45,9 @@ in the middle of his weekend :)
 <li> The input of the model are the machine ID and the number of days, and the model will output the probability of failure of that machine. 
 
 
+![Screenshot](https://github.com/SoufianeDataFan/R_Predictive_Maintenance_Web_Dashboard/blob/master/Dashboard.png)
+
+
 <h3><i>Other application</i></h3>
 
 
