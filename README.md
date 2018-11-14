@@ -1,7 +1,5 @@
 # R_Predictive_Maintenance
 
-
-
 Predictive Maintenance Project consists of two sides :
 
 **Data Analytics** : Development of machine learning to predict the future failure of routing machines like pumps.
@@ -15,8 +13,7 @@ Predictive Maintenance Project consists of two sides :
 
 **History of failure events**: failures history of the correspondent machine from 2014 to 2017. 
 
-
-
+![Screenshot](https://github.com/SoufianeDataFan/R_Predictive_Maintenance_Web_Dashboard/blob/master/Dataflow.png)
 
 <h3><i>Decision making </i></h3>
 
