@@ -1,6 +1,6 @@
 # R_Predictive_Maintenance
 
-Predictive Maintenance Project consists of two sides :
+Predictive Maintenance Project consists of two parts :
 
 **Data Analytics** : Development of machine learning to predict the future failure of routing machines like pumps.
 
